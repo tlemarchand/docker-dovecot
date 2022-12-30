@@ -6,7 +6,7 @@ podman run --name dovecot debian:bullseye-slim /bin/bash -c "apt-get update > /d
   curl https://repo.dovecot.org/DOVECOT-REPO-GPG | gpg --import && \
   gpg --export ED409DA1 > /etc/apt/trusted.gpg.d/dovecot.gpg && \
   echo 'deb https://repo.dovecot.org/ce-2.3-latest/debian/bullseye bullseye main' > /etc/apt/sources.list.d/dovecot.list && \
-  apt-get update > /dev/null && apt-cache policy dovecot-core | sed -n -e 's/^.*Candidate: //p' | tr -d '\n'" > version
+  apt-get update > /dev/null && apt-cache policy dovecot-core | sed -n -e 's/^.*Candidate: //p' | tr -d '\n' | cut -d~ -f 1 | cut -d+ -f 1 | cut -d: -f 2" > version
 podman rm dovecot
 
 git add -A
