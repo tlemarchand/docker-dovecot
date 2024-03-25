@@ -26,6 +26,6 @@ RUN apt-get update && apt-get install -y curl apt-transport-https gpg && \
     sed -i 's/#protocols = $protocols sieve/protocols = $protocols sieve/' /etc/dovecot/conf.d/20-managesieve.conf && \
     echo "service managesieve-login {\n  inet_listener sieve {\n    port = 4190\n  }\n}" >> /etc/dovecot/conf.d/20-managesieve.conf && \
     echo "service managesieve {\n}" >> /etc/dovecot/conf.d/20-managesieve.conf && \
-    sed -i 's/#mail_plugins = $mail_plugins"/mail_plugins = $mail_plugins sieve/' /etc/dovecot/conf.d/20-lmtp.conf
+    sed -i 's/#mail_plugins = $mail_plugins/mail_plugins = $mail_plugins sieve/' /etc/dovecot/conf.d/20-lmtp.conf
 
 CMD /usr/sbin/dovecot -F
