@@ -1,5 +1,7 @@
 FROM debian:trixie-slim
 
+ENV DEBIAN_FRONTEND=noninteractive
+
 COPY version /tmp/
 COPY dovecot.sources /etc/apt/sources.list.d/
 
