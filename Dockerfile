@@ -1,11 +1,10 @@
-FROM debian:bullseye-slim
+FROM debian:trixie-slim
 
 COPY version /tmp/
+COPY dovecot.sources /etc/apt/sources.list.d/
 
 RUN apt-get update && apt-get install -y curl apt-transport-https gpg && \
-    curl https://repo.dovecot.org/DOVECOT-REPO-GPG-2.3 | gpg --import && \
-    gpg --export ED409DA1 > /etc/apt/trusted.gpg.d/dovecot.gpg && \
-    echo 'deb https://repo.dovecot.org/ce-2.3-latest/debian/bullseye bullseye main' > /etc/apt/sources.list.d/dovecot.list && \
+    curl https://repo.dovecot.org/DOVECOT-REPO-GPG-2.4 | gpg --dearmor -o /usr/share/keyrings/dovecot.gpg && \
     apt-get update && apt-get install -y dovecot-core=`cat /tmp/version` dovecot-gssapi dovecot-imapd dovecot-ldap dovecot-lmtpd dovecot-managesieved dovecot-sieve dovecot-submissiond && \
     apt-get purge -y curl apt-transport-https gpg && \
     rm -rf /var/lib/apt/lists/* && \
