@@ -1,5 +1,0 @@
-Types: deb
-URIs: https://repo.dovecot.org/ce-2.3-latest/debian/bullseye
-Suites: bullseye
-Components: main
-Signed-By: /usr/share/keyrings/dovecot.gpg

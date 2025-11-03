@@ -1,12 +1,11 @@
-FROM debian:bullseye-slim
+FROM debian:bookworm-slim
 
 ENV DEBIAN_FRONTEND=noninteractive
 
 COPY version /tmp/
-COPY dovecot.sources /etc/apt/sources.list.d/
 
-RUN apt-get update && apt-get install -y curl apt-transport-https gpg && \
-    curl https://repo.dovecot.org/DOVECOT-REPO-GPG-2.3 | gpg --dearmor -o /usr/share/keyrings/dovecot.gpg && \
+RUN echo "deb http://deb.debian.org/debian bookworm-backports main" > /etc/apt/sources.list.d/backports.list && \
+    apt-get update && apt-get install -y curl apt-transport-https gpg && \
     apt-get update && apt-get install -y dovecot-core=`cat /tmp/version` dovecot-gssapi dovecot-imapd dovecot-ldap dovecot-lmtpd dovecot-managesieved dovecot-sieve dovecot-submissiond && \
     apt-get purge -y curl apt-transport-https gpg && \
     rm -rf /var/lib/apt/lists/* && \
