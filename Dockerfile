@@ -6,7 +6,7 @@ COPY version /tmp/
 
 RUN echo "deb http://deb.debian.org/debian bookworm-backports main" > /etc/apt/sources.list.d/backports.list && \
     apt-get update && apt-get install -y curl apt-transport-https gpg && \
-    apt-get update && apt-get install -y dovecot-core=`cat /tmp/version` dovecot-gssapi dovecot-imapd dovecot-ldap dovecot-lmtpd dovecot-managesieved dovecot-sieve dovecot-submissiond && \
+    apt-get update && apt-get -t bookworm-backports install -y dovecot-core=`cat /tmp/version` dovecot-gssapi dovecot-imapd dovecot-ldap dovecot-lmtpd dovecot-managesieved dovecot-sieve dovecot-submissiond && \
     apt-get purge -y curl apt-transport-https gpg && \
     rm -rf /var/lib/apt/lists/* && \
     sed -i 's/ssl = no/#ssl = no/' /etc/dovecot/conf.d/10-ssl.conf && \
